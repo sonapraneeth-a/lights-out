@@ -15,8 +15,9 @@ class GameForm extends React.Component
     {
         super(props);
         this.state = {
-            numRows: 3,         // Number of rows in the board
-            numCols: 3,         // Number of columns in the board
+            numRows: 3,          // Number of rows in the board
+            numCols: 3,          // Number of columns in the board
+            puzzleLevel: "easy", // Level of the puzzle
         };
 
         // Function for handling number of rows required for the board
@@ -27,6 +28,7 @@ class GameForm extends React.Component
         this.handleSubmit = this.handleSubmit.bind(this);
         // Function for handling reset of the game
         this.handleNewGame = this.handleNewGame.bind(this);
+        this.handlePuzzleLevel = this.handlePuzzleLevel.bind(this);
     }
 
     /**
@@ -58,7 +60,14 @@ class GameForm extends React.Component
         event.preventDefault();
         // Call game handle sent from Game component
         this.props.handleFromGame(this.state.numRows, this.state.numCols, 
-                                    this.state.firstPlayer, this.state.secondPlayer);
+                                    this.state.puzzleLevel);
+    }
+
+    handlePuzzleLevel(event)
+    {
+        this.setState({
+            puzzleLevel: event.target.value
+        });
     }
 
     /**
@@ -88,6 +97,12 @@ class GameForm extends React.Component
                         <input type="number" value={this.state.numCols}
                                 min="3" max="20"
                                 placeholder="Number of cols..." onChange={this.handleCols} />
+                    </div>
+                    <div className="game-form players">
+                        <label> Puzzle level </label>
+                        <select value={this.state.puzzleLevel} onChange={this.handlePuzzleLevel}>
+                            <option value="easy">Easy</option>
+                        </select>
                     </div>
                     <div className="game-form submit">
                         <button type="submit" 

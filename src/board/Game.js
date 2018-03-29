@@ -28,11 +28,13 @@ class Game extends React.Component
         this.config = {
             numRows: 3, // Number of rows in the board
             numCols: 3, // Number of cols in the board
+            puzzleLevel: "easy",
         };
+        let board = this.createNewPuzzle(this.config.numRows, this.config.numCols);
         // Current state of the game
         this.state = {
             boardHistory: [{
-                squares: this.createEmptyBoard(this.config.numRows, this.config.numCols),
+                squares: board[0],
                 // Removed polyfill as there was an array problem.
                 // See: https://stackoverflow.com/questions/9979560/javascript-multidimensional-array-updating-specific-element?rq=1
             }],                 // History of moves on the board
@@ -40,7 +42,7 @@ class Game extends React.Component
                 message: "Game start",
             }],                  // History of status messages regarding the game
             stepNumber: 0,       // Which move number?
-            numSquaresTurnedOff: 0, // How many squares have been filled currently?
+            numSquaresTurnedOff: board[1], // How many squares have been filled currently?
             isPuzzleSolved: false,
         };
     }
@@ -50,9 +52,11 @@ class Game extends React.Component
      * @param {*} numRows - Number of rows required for the board
      * @param {*} numCols - Number of columns required for the board
      */
-    createEmptyBoard(numRows, numCols)
+    createNewPuzzle(numRows, numCols)
     {
         var board = new Array(numRows);
+        var numTurnedOffSquares = 0;
+        console.log(numTurnedOffSquares);
         for (let rowIndex = 0; rowIndex < numRows; rowIndex++)
         {
             board[rowIndex] = new Array(numCols);
@@ -62,7 +66,43 @@ class Game extends React.Component
                 board[rowIndex][colIndex] = "on";
             }
         }
-        return board;
+        let indices = [];
+        if(this.config.puzzleLevel === "easy")
+        {
+            let maxNumberOfSteps = 4;
+            let numSteps = Math.floor(Math.random() * maxNumberOfSteps);
+            console.log(numSteps);
+            for(let index = 0; index < numSteps; index++)
+            {
+                let row = Math.floor(Math.random() * (this.config.numRows-1));
+                let col = Math.floor(Math.random() * (this.config.numCols-1));
+                indices.push([row, col]);
+            }
+        }
+        let numOfMoves = indices.length;
+        for(let index = 0; index < numOfMoves; index++)
+        {
+            let changedSquares = this.changeSquares(board, indices[index][0], indices[index][1]);
+            console.log(changedSquares);
+            for(let index = 0; index < changedSquares.length; index++)
+            {
+                let rowIndex = changedSquares[index][0];
+                let colIndex = changedSquares[index][1];
+                let content = changedSquares[index][2];
+                board[rowIndex][colIndex] = content;
+                if(content === "off")
+                {
+                    numTurnedOffSquares = numTurnedOffSquares + 1;
+                }
+                else
+                {
+                    numTurnedOffSquares = numTurnedOffSquares - 1;
+                }
+            }
+        }
+        console.log(board);
+        console.log(numTurnedOffSquares);
+        return [board, numTurnedOffSquares];
     }
 
     /**
@@ -70,10 +110,11 @@ class Game extends React.Component
      * @param {*} numRows - Number of rows for the board
      * @param {*} numCols - Number of cols for the board
      */
-    handleFromGameInfo(numRows, numCols)
+    handleFromGameInfo(numRows, numCols, puzzleLevel)
     {
         this.config.numRows = parseInt(numRows, 10); // Set the number of rows for the board
         this.config.numCols = parseInt(numCols, 10); // Set the number of cols for the board
+        this.config.puzzleLevel = puzzleLevel; 
         // Reset the game based on information provided by the user
         this.newGame();
     }
@@ -92,12 +133,13 @@ class Game extends React.Component
      */
     newGame()
     {
+        let board = this.createNewPuzzle(this.config.numRows, this.config.numCols);
         // Resetting the game would mean setting the state of the board to what it
         // originally started with. Please see constructor for the original state
         // of the board
         this.setState({
             boardHistory: [{
-                squares: this.createEmptyBoard(this.config.numRows, this.config.numCols),
+                squares: board[0],
                 // Removed polyfill as there was an array problem.
                 // See: https://stackoverflow.com/questions/9979560/javascript-multidimensional-array-updating-specific-element?rq=1
             }],
@@ -105,7 +147,7 @@ class Game extends React.Component
                 message: "Game start",
             }],
             stepNumber: 0,
-            numSquaresTurnedOff: 0,
+            numSquaresTurnedOff: board[1],
             isPuzzleSolved: false,
         });
     }
