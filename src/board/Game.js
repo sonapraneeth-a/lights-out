@@ -56,7 +56,6 @@ class Game extends React.Component
     {
         var board = new Array(numRows);
         var numTurnedOffSquares = 0;
-        console.log(numTurnedOffSquares);
         for (let rowIndex = 0; rowIndex < numRows; rowIndex++)
         {
             board[rowIndex] = new Array(numCols);
@@ -67,17 +66,29 @@ class Game extends React.Component
             }
         }
         let indices = [];
+        let maxNumberOfSteps = 0;
+        let numSteps = 0;
         if(this.config.puzzleLevel === "easy")
         {
-            let maxNumberOfSteps = 4;
-            let numSteps = Math.floor(Math.random() * maxNumberOfSteps);
-            console.log(numSteps);
-            for(let index = 0; index < numSteps; index++)
-            {
-                let row = Math.floor(Math.random() * (this.config.numRows-1));
-                let col = Math.floor(Math.random() * (this.config.numCols-1));
-                indices.push([row, col]);
-            }
+            maxNumberOfSteps = 4;
+            numSteps = Math.floor(Math.random() * maxNumberOfSteps);
+        }
+        else if(this.config.puzzleLevel === "medium")
+        {
+            maxNumberOfSteps = 10;
+            numSteps = Math.floor(Math.random() * maxNumberOfSteps);
+        }
+        else
+        {
+            maxNumberOfSteps = 4;
+            numSteps = Math.floor(Math.random() * maxNumberOfSteps);
+        }
+        console.log(numSteps);
+        for(let index = 0; index < numSteps; index++)
+        {
+            let row = Math.floor(Math.random() * (this.config.numRows));
+            let col = Math.floor(Math.random() * (this.config.numCols));
+            indices.push([row, col]);
         }
         let numOfMoves = indices.length;
         for(let index = 0; index < numOfMoves; index++)

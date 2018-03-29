@@ -20,6 +20,8 @@ class GameForm extends React.Component
             puzzleLevel: "easy", // Level of the puzzle
         };
 
+        // Function for handling size of the board
+        this.handleBoardSize = this.handleBoardSize.bind(this);
         // Function for handling number of rows required for the board
         this.handleRows = this.handleRows.bind(this);
         // Function for handling number of cols required for the board
@@ -29,6 +31,18 @@ class GameForm extends React.Component
         // Function for handling reset of the game
         this.handleNewGame = this.handleNewGame.bind(this);
         this.handlePuzzleLevel = this.handlePuzzleLevel.bind(this);
+    }
+
+    /**
+     * @brief - Function for handling the size of the board
+     * @param {*} event 
+     */
+    handleBoardSize(event)
+    {
+        this.setState({
+            numRows: parseInt(event.target.value, 10),
+            numCols: parseInt(event.target.value, 10),
+        });
     }
 
     /**
@@ -91,12 +105,11 @@ class GameForm extends React.Component
             <div className="game-form-controls">
                 <form onSubmit={this.handleSubmit} className="game-form">
                     <div className="game-form-item">
-                        <input type="number" value={this.state.numRows} 
-                                min="3" max="20"
-                                placeholder="Number of rows..." onChange={this.handleRows} />
-                        <input type="number" value={this.state.numCols}
-                                min="3" max="20"
-                                placeholder="Number of cols..." onChange={this.handleCols} />
+                        <label> Size of board </label>
+                        <select value={this.state.numRows} onChange={this.handleBoardSize}>
+                            <option value="3">3</option>
+                            <option value="6">6</option>
+                        </select>
                     </div>
                     <div className="game-form players">
                         <label> Puzzle level </label>
