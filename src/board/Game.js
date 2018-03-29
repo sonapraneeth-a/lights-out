@@ -1,6 +1,7 @@
 import React from "react";
 import Board from "./Board";
 import GameForm from "./GameForm";
+import GameInfo from "./GameInfo";
 import "../styles/css/index.css";
 
 const version = {
@@ -260,8 +261,8 @@ class Game extends React.Component
                 squares: currentSquares,
             }]),
             moveHistory: moveHistory.concat([{
-                message: "Move " + parseInt(this.state.stepNumber + 1, 10) + ": Placed " + 
-                            currentSquares[rowIndex][colIndex] + " at (" + rowIndex + ", " + colIndex + ")",
+                message: "Move " + parseInt(this.state.stepNumber + 1, 10) + ": Clicked " + 
+                            " on (" + rowIndex + ", " + colIndex + ")",
             }]),
             numSquaresTurnedOff: numTurnedOffSquares,
             stepNumber: boardHistory.length,
@@ -283,16 +284,41 @@ class Game extends React.Component
     }
 
     /**
+     * 
+     * @param {*} step 
+     */
+    jumpTo(step)
+    {
+        console.log("Jump to: " + step);
+        console.log(this.state.boardHistory);
+        this.setState({
+            numSquaresTurnedOff: step,
+            stepNumber: step,
+            boardHistory: this.state.boardHistory.slice(0, step + 1),
+            moveHistory: this.state.moveHistory.slice(0, step + 1),
+        });
+    }
+
+    /**
      * @brief - Determines how all the components of the board should be rendered
      */
     render()
     {
+        console.log("Render");
+        console.log(this.state.boardHistory);
         const currentBoard= this.state.boardHistory[this.state.boardHistory.length-1];
         let status = "";
         if(this.state.isPuzzleSolved)
         {
             status = "Puzzle solved in " + this.state.stepNumber + " steps";
         }
+        const moves = this.state.boardHistory.map((step, move) =>
+        {
+            const desc = this.state.moveHistory[move].message;
+            return (
+                <p key={"step" + move} className="game-move-item" onClick={() => this.jumpTo(move)}>{desc}</p>
+            );
+        });
         return (
             <div className="game">
                 {/* Title and version of the game */}
@@ -317,6 +343,9 @@ class Game extends React.Component
                             handleForNewGame={this.handleNewGame}
                         />
                     </div>
+                    <GameInfo
+                        moves={moves}
+                    />
                     {/* Information regarding game moves */}
                     <div className="game-info">
                     </div>
