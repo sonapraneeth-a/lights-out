@@ -41,7 +41,7 @@ class Game extends React.Component
             }],                  // History of status messages regarding the game
             stepNumber: 0,       // Which move number?
             numSquaresTurnedOff: 0, // How many squares have been filled currently?
-            winner: false,
+            isPuzzleSolved: false,
         };
     }
 
@@ -106,7 +106,7 @@ class Game extends React.Component
             }],
             stepNumber: 0,
             numSquaresTurnedOff: 0,
-            winner: false,
+            isPuzzleSolved: false,
         });
     }
 
@@ -177,8 +177,8 @@ class Game extends React.Component
         const moveHistory = this.state.moveHistory.slice(0, this.state.stepNumber + 1);
         const currentBoard = boardHistory[boardHistory.length - 1];
         const currentSquares = currentBoard.squares.slice();
-        // If winner is already declared or the square in the board is unoccupied, do not change the board
-        if (this.state.winner)
+        // If isPuzzleSolved is already declared or the square in the board is unoccupied, do not change the board
+        if (this.state.isPuzzleSolved)
         {
             return;
         }
@@ -199,7 +199,7 @@ class Game extends React.Component
                 numTurnedOffSquares = numTurnedOffSquares - 1;
             }
         }
-        let winner = (numTurnedOffSquares ===
+        let isPuzzleSolved = (numTurnedOffSquares ===
                         (this.config.numRows*this.config.numCols));
         this.setState({
             boardHistory: boardHistory.concat([{
@@ -211,7 +211,7 @@ class Game extends React.Component
             }]),
             numSquaresTurnedOff: numTurnedOffSquares,
             stepNumber: boardHistory.length,
-            winner: winner,
+            isPuzzleSolved: isPuzzleSolved,
         });
     }
 
@@ -235,9 +235,9 @@ class Game extends React.Component
     {
         const currentBoard= this.state.boardHistory[this.state.boardHistory.length-1];
         let status = "";
-        if(this.state.winner)
+        if(this.state.isPuzzleSolved)
         {
-            status = "Winner";
+            status = "Puzzle solved in " + this.state.stepNumber + " steps";
         }
         return (
             <div className="game">
