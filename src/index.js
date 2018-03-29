@@ -8,7 +8,7 @@ import Game from './board/Game';
 ReactDOM.render (
     <Game
         title="Lights Out"
-        version="v0.1.0"
+        version="v0.9.0"
         debug="yes"
     />,
     document.getElementById("app")
