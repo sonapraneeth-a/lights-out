@@ -199,7 +199,8 @@ class Game extends React.Component
                 numTurnedOffSquares = numTurnedOffSquares - 1;
             }
         }
-        let winner = this.isGameComplete(currentSquares);
+        let winner = (numTurnedOffSquares ===
+                        (this.config.numRows*this.config.numCols));
         this.setState({
             boardHistory: boardHistory.concat([{
                 squares: currentSquares,
@@ -222,7 +223,7 @@ class Game extends React.Component
     handleClick(rowIndex, colIndex)
     {
         const isBoardTurnedOff = (this.state.numSquaresTurnedOff ===
-                                (this.config.numRows*this.config.numCols));
+                                    (this.config.numRows*this.config.numCols));
         if(isBoardTurnedOff === true) {return;}
         this.updateBoard(rowIndex, colIndex);
     }
