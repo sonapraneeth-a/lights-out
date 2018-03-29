@@ -228,17 +228,21 @@ class Game extends React.Component
      */
     updateBoard(rowIndex, colIndex)
     {
-        const boardHistory = this.state.boardHistory.slice(0, this.state.stepNumber + 1);
-        const moveHistory = this.state.moveHistory.slice(0, this.state.stepNumber + 1);
-        const currentBoard = boardHistory[boardHistory.length - 1];
-        const currentSquares = currentBoard.squares.slice();
+        let boardHistory = this.state.boardHistory.slice(0, this.state.stepNumber+1);
+        let moveHistory = this.state.moveHistory.slice(0, this.state.stepNumber+1);
+        let currentBoard = boardHistory[boardHistory.length - 1];
+        let currentSquares = new Array(this.config.numRows);
+        for (let rowIndex = 0; rowIndex < this.config.numRows; rowIndex++)
+        {
+            currentSquares[rowIndex] = currentBoard.squares[rowIndex].slice();
+        }
         // If isPuzzleSolved is already declared or the square in the board is unoccupied, do not change the board
         if (this.state.isPuzzleSolved)
         {
             return;
         }
-        let changedSquares = this.changeSquares(currentSquares, rowIndex, colIndex);
         let numTurnedOffSquares = this.state.numSquaresTurnedOff;
+        let changedSquares = this.changeSquares(currentSquares, rowIndex, colIndex);
         for(let index = 0; index < changedSquares.length; index++)
         {
             let rowIndex = changedSquares[index][0];
@@ -289,8 +293,6 @@ class Game extends React.Component
      */
     jumpTo(step)
     {
-        console.log("Jump to: " + step);
-        console.log(this.state.boardHistory);
         this.setState({
             numSquaresTurnedOff: step,
             stepNumber: step,
@@ -304,8 +306,6 @@ class Game extends React.Component
      */
     render()
     {
-        console.log("Render");
-        console.log(this.state.boardHistory);
         const currentBoard= this.state.boardHistory[this.state.boardHistory.length-1];
         let status = "";
         if(this.state.isPuzzleSolved)
