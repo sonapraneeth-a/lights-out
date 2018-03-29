@@ -115,6 +115,8 @@ class GameForm extends React.Component
                         <label> Puzzle level </label>
                         <select value={this.state.puzzleLevel} onChange={this.handlePuzzleLevel}>
                             <option value="easy">Easy</option>
+                            <option value="medium">Medium</option>
+                            <option value="difficult">Difficult</option>
                         </select>
                     </div>
                     <div className="game-form submit">

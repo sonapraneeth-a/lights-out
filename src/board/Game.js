@@ -78,12 +78,16 @@ class Game extends React.Component
             maxNumberOfSteps = 10;
             numSteps = Math.floor(Math.random() * maxNumberOfSteps);
         }
+        else if(this.config.puzzleLevel === "difficult")
+        {
+            maxNumberOfSteps = 15;
+            numSteps = Math.floor(Math.random() * maxNumberOfSteps);
+        }
         else
         {
             maxNumberOfSteps = 4;
             numSteps = Math.floor(Math.random() * maxNumberOfSteps);
         }
-        console.log(numSteps);
         for(let index = 0; index < numSteps; index++)
         {
             let row = Math.floor(Math.random() * (this.config.numRows));
@@ -94,7 +98,6 @@ class Game extends React.Component
         for(let index = 0; index < numOfMoves; index++)
         {
             let changedSquares = this.changeSquares(board, indices[index][0], indices[index][1]);
-            console.log(changedSquares);
             for(let index = 0; index < changedSquares.length; index++)
             {
                 let rowIndex = changedSquares[index][0];
@@ -111,8 +114,6 @@ class Game extends React.Component
                 }
             }
         }
-        console.log(board);
-        console.log(numTurnedOffSquares);
         return [board, numTurnedOffSquares];
     }
 
