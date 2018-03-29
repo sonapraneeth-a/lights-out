@@ -1,7 +1,6 @@
 import React from "react";
 import Board from "./Board";
 import GameForm from "./GameForm";
-import {CalculateWinner} from "./GameComplete";
 import "../styles/css/index.css";
 
 const version = {
@@ -42,7 +41,7 @@ class Game extends React.Component
             }],                  // History of status messages regarding the game
             stepNumber: 0,       // Which move number?
             numSquaresTurnedOff: 0, // How many squares have been filled currently?
-            winner: null,
+            winner: false,
         };
     }
 
@@ -60,7 +59,7 @@ class Game extends React.Component
             // Creating a board row
             for (let colIndex = 0; colIndex < numCols; colIndex++)
             {
-                board[rowIndex][colIndex] = null;
+                board[rowIndex][colIndex] = "on";
             }
         }
         return board;
@@ -107,8 +106,64 @@ class Game extends React.Component
             }],
             stepNumber: 0,
             numSquaresTurnedOff: 0,
-            winner: null,
+            winner: false,
         });
+    }
+
+    /**
+     * 
+     * @param {*} squares 
+     * @param {*} rowIndex 
+     * @param {*} colIndex 
+     */
+    changeSquares(squares, rowIndex, colIndex)
+    {
+        let numRows = squares.length;
+        let numCols = squares[0].length;
+        let content = "";
+        let indices = [];
+        if(rowIndex-1 >= 0)
+        {
+            content = (squares[rowIndex-1][colIndex] === "on" ? "off" : "on");
+            indices.push([rowIndex-1, colIndex, content]);
+        }
+        if(rowIndex+1 < numRows)
+        {
+            content = (squares[rowIndex+1][colIndex] === "on" ? "off" : "on");
+            indices.push([rowIndex+1, colIndex, content]);
+        }
+        if(colIndex-1 >= 0)
+        {
+            content = (squares[rowIndex][colIndex-1] === "on" ? "off" : "on");
+            indices.push([rowIndex, colIndex-1, content]);
+        }
+        if(colIndex+1 < numCols)
+        {
+            content = (squares[rowIndex][colIndex+1] === "on" ? "off" : "on");
+            indices.push([rowIndex, colIndex+1, content]);
+        }
+        content = (squares[rowIndex][colIndex] === "on" ? "off" : "on");
+        indices.push([rowIndex, colIndex, content]);
+        return indices;
+    }
+
+    isGameComplete(squares)
+    {
+        let numRows = squares.length;
+        let numCols = squares[0].length;
+        let status = true;
+        for(let rowIndex = 0; rowIndex < numRows; rowIndex++)
+        {
+            for(let colIndex = 0; colIndex < numCols; colIndex++)
+            {
+                if(squares[rowIndex][colIndex] !== "off")
+                {
+                    status = false; break;
+                }
+            }
+            if(status === false) { break; }
+        }
+        return status;
     }
 
     /**
@@ -127,7 +182,24 @@ class Game extends React.Component
         {
             return;
         }
-        let winner = CalculateWinner(currentSquares);
+        let changedSquares = this.changeSquares(currentSquares, rowIndex, colIndex);
+        let numTurnedOffSquares = this.state.numSquaresTurnedOff;
+        for(let index = 0; index < changedSquares.length; index++)
+        {
+            let rowIndex = changedSquares[index][0];
+            let colIndex = changedSquares[index][1];
+            let content = changedSquares[index][2];
+            currentSquares[rowIndex][colIndex] = content;
+            if(content === "off")
+            {
+                numTurnedOffSquares = numTurnedOffSquares + 1;
+            }
+            else
+            {
+                numTurnedOffSquares = numTurnedOffSquares - 1;
+            }
+        }
+        let winner = this.isGameComplete(currentSquares);
         this.setState({
             boardHistory: boardHistory.concat([{
                 squares: currentSquares,
@@ -136,7 +208,7 @@ class Game extends React.Component
                 message: "Move " + parseInt(this.state.stepNumber + 1, 10) + ": Placed " + 
                             currentSquares[rowIndex][colIndex] + " at (" + rowIndex + ", " + colIndex + ")",
             }]),
-            numSquaresTurnedOff: this.state.numSquaresTurnedOff + 1,
+            numSquaresTurnedOff: numTurnedOffSquares,
             stepNumber: boardHistory.length,
             winner: winner,
         });
@@ -151,7 +223,7 @@ class Game extends React.Component
     {
         const isBoardTurnedOff = (this.state.numSquaresTurnedOff ===
                                 (this.config.numRows*this.config.numCols));
-        if(isBoardTurnedOff) {return;}
+        if(isBoardTurnedOff === true) {return;}
         this.updateBoard(rowIndex, colIndex);
     }
 
@@ -187,7 +259,7 @@ class Game extends React.Component
                         />
                         <GameForm 
                             handleFromGame={this.handleFromGameInfo}
-                            handleForReset={this.handleNewGame}
+                            handleForNewGame={this.handleNewGame}
                         />
                     </div>
                     {/* Information regarding game moves */}

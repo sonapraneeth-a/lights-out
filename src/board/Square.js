@@ -12,7 +12,7 @@ class Square extends React.Component
     render()
     {
         let squareClass = "square";
-        if(this.props.value !== null)
+        if(this.props.value === "on")
         {
             squareClass += " on";
         }
