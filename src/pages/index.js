@@ -1,3 +1,4 @@
 import React from "react"
+import Game from './board/Game';
 
-export default () => <div>Hello world!</div>
+export default () => <Game title="Lights Out" version="v0.11.1" debug="yes"/>

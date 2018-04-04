@@ -1,6 +1,6 @@
 {
-  "name": "gatsby-starter-hello-world",
-  "description": "Gatsby hello world starter",
+  "name": "lights-out",
+  "description": "Gatsby version fo Lights Out application",
   "license": "MIT",
   "scripts": {
     "develop": "gatsby develop",
