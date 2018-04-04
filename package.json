@@ -1,14 +1,31 @@
 {
-  "name": "lights-out",
-  "description": "Gatsby version fo Lights Out application",
-  "license": "MIT",
-  "scripts": {
-    "develop": "gatsby develop",
-    "build": "gatsby build",
-    "serve": "gatsby serve"
-  },
-  "dependencies": {
-    "gatsby": "^1.9.241",
-    "gatsby-link": "^1.6.39"
-  }
+    "name": "gatsby-webpage",
+    "description": "Webpage of Sona Praneeth Akula",
+    "version": "1.0.0",
+    "author": "Sona Praneeth Akula <sonapraneeth.akula@gmail.com>",
+    "dependencies": {
+        "gatsby": "^1.9.158",
+        "gatsby-link": "^1.6.34",
+        "gatsby-plugin-react-helmet": "^2.0.3",
+        "gatsby-plugin-sass": "^1.0.16",
+        "gatsby-source-filesystem": "^1.5.15",
+        "gatsby-transformer-remark": "^1.7.29",
+        "react-helmet": "^5.2.0"
+    },
+    "keywords": [
+        "gatsby"
+    ],
+    "license": "MIT",
+    "main": "n/a",
+    "scripts": {
+        "build": "gatsby build",
+        "develop": "gatsby develop",
+        "format": "prettier --trailing-comma es5 --no-semi --single-quote --write \"src/**/*.js\"",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "deploy": "gatsby build --prefix-paths && gh-pages -d public"
+    },
+    "devDependencies": {
+        "prettier": "^1.10.2",
+        "gh-pages": "^1.1.0"
+    }
 }
