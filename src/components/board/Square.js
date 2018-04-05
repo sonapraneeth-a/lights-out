@@ -2,11 +2,11 @@ import React from "react";
 //import "../styles/css/index.css";
 
 const square = {
-    width: "1rem",
-    height: "1rem",
-    fontSize: "1rem",
+    width: "3rem",
+    height: "3rem",
+    fontSize: "3rem",
     padding: "0.5rem",
-    lineHeight: "1rem",
+    lineHeight: "3rem",
     border: "1px solid black"
 }
 

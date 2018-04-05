@@ -1,8 +1,10 @@
 module.exports = {
-  siteMetadata: {
-    title: 'Sona Praneeth Akula - Home page',
-  },
-  plugins: [
-    `gatsby-plugin-react-helmet`,
-  ],
+    siteMetadata: {
+        title: 'Lights Out - Gatsby App',
+    },
+    plugins: [
+        `gatsby-plugin-react-helmet`,
+        `gatsby-plugin-typography`
+    ],
+    pathPrefix: `/lights-out`,
 };
