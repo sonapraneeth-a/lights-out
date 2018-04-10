@@ -1,5 +1,5 @@
 import React from "react";
-//import "../styles/css/index.css";
+import Card, { CardContent } from 'material-ui/Card';
 
 const square = {
     width: "3rem",
@@ -39,11 +39,11 @@ class Square extends React.Component
             squareStyle = Object.assign({}, square, squareOff);
         }
         return (
-            <div 
+            <Card 
                 style={squareStyle}
                 onClick={() => this.props.onClick()}
             >
-            </div>
+            </Card>
         );
     }
 }
