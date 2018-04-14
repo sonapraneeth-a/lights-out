@@ -4,6 +4,7 @@ module.exports = {
         version: "0.11.1",
         siteUrl: "https://sonapraneeth-a.github.io/lights-out/",
         description: "Lights Out puzzle in Gatsby react",
+        keywords: "lights-out, gatsby, react, material-ui",
     },
     plugins: [
         {
@@ -46,6 +47,12 @@ module.exports = {
                   type: "image/png",
                 },
               ],
+            },
+        },
+        {
+            resolve: `gatsby-plugin-sass`,
+            options: {
+              precision: 8,
             },
         },
         "gatsby-plugin-react-helmet",
