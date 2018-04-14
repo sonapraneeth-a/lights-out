@@ -6,9 +6,5 @@
 
  // You can delete this file if you're not using it
 
- exports.registerServiceWorker = () => true
+exports.registerServiceWorker = () => true
 
- exports.onClientEntry = () => {
-    console.log("We've started!")
-    callAnalyticsAPI();
-}
