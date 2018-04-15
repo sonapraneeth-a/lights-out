@@ -1,5 +1,4 @@
 import React from 'react';
-//import '../styles/css/index.css';
 
 class GameInfo extends React.Component
 {

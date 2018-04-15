@@ -1,0 +1,84 @@
+$square_width: 3rem;
+$square_margin_right: 0.5rem;
+
+$board_row_width_3: (($square_width * 3) + ($square_margin_right * 4));
+$board_row_width_6: (($square_width * 6) + ($square_margin_right * 7));
+
+$board-background: hsl(29, 17%, 68%);
+$square-off: hsl(30, 37%, 89.4%);
+$square-on: darken($square-off, 30%);
+
+.game-container-3
+{
+    width: $board_row_width_3;
+    height: $board_row_width_3;
+}
+
+.game-container-6
+{
+    width: $board_row_width_6;
+    height: $board_row_width_6;
+}
+
+.game-container
+{
+    margin-top: 40px;
+    position: relative;
+    padding: 0.5rem;
+    cursor: default;
+    -webkit-touch-callout: none;
+    -ms-touch-callout: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -ms-touch-action: none;
+    touch-action: none;
+    background: $board-background;
+    border-radius: 6px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.board-container
+{
+    position: absolute;
+    z-index: 1;
+}
+
+.board-row
+{
+    margin-bottom: $square_margin_right;
+    &:last-child
+    {
+        margin-bottom: 0;
+    }
+    &:after
+    {
+        content: "";
+        display: block;
+        clear: both;
+    }
+}
+
+.board-square
+{
+    width: $square_width;
+    height: $square_width;
+    margin-right: $square_margin_right;
+    float: left;
+    border-radius: 3px;
+    &:last-child
+    {
+        margin-right: 0;
+    }
+    &.on
+    {
+        background: $square-on;//rgba(238, 228, 218, 0.35);
+    }
+    &.off
+    {
+        background: $square-off;//rgba(238, 228, 218, 0.35);
+    }
+}

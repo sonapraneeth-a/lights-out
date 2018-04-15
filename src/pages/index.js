@@ -20,7 +20,6 @@ const typography = new Typography
 
 
 export default () =>
-    <div style={{ margin: '3rem auto', maxWidth: '90%' }}>
-        Lights-out Game
+    <div style={{ margin: "1rem auto", maxWidth: "100%" }}>
         <Game/>
     </div>

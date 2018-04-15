@@ -1,6 +1,5 @@
 import React from "react";
 import Square from "./Square";
-//import "../styles/css/index.css";
 
 const boardRow = {
     display: "flex"
@@ -40,7 +39,7 @@ class Board extends React.Component
             cols.push(this.renderSquare(rowNum, colIndex));
         }
         return (
-            <div style={boardRow} key={"row"+rowNum+1}>
+            <div className="board-row" key={"row"+rowNum+1}>
                 {cols}
             </div>
         );
@@ -59,7 +58,7 @@ class Board extends React.Component
             rows.push(this.renderBoardRow(rowIndex, numCols));
         }
         return (
-            <div key={"board"}>
+            <div key={"board"} className="board-container">
                 {rows}
             </div>
         ); 
@@ -75,7 +74,10 @@ class Board extends React.Component
         return (
             <div>
                 {statusDiv}
-                {board}
+                {/* https://stackoverflow.com/questions/34521797/how-to-add-multiple-classes-to-a-reactjs-component */}
+                <div className={`game-container game-container-${this.props.numCols}`}>
+                    {board}
+                </div>
             </div>
         );
     }

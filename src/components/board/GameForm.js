@@ -1,9 +1,4 @@
 import React from 'react';
-/*import { withStyles } from 'material-ui/styles';*/
-import Button from 'material-ui/Button';
-import Select from 'material-ui/Select';
-import { MenuItem } from 'material-ui/Menu';
-import { InputLabel } from 'material-ui/Input';
 
 /* https://codepen.io/PiotrBerebecki/pen/dpRdKP?editors=0010 */
 
@@ -110,41 +105,29 @@ class GameForm extends React.Component
             <div className="game-form-controls">
                 <form onSubmit={this.handleSubmit} className="game-form">
                     <div className="game-form-item">
-                        <InputLabel htmlFor="board-size-helper">Size fo board</InputLabel>
-                        <Select
-                            value={this.state.numRows}
-                            onChange={this.handleBoardSize}
-                            id="board-size-helper"
-                        >
-                            <MenuItem value={3}>3</MenuItem>
-                            <MenuItem value={6}>6</MenuItem>
-                        </Select>
+                        <label> Size of board </label>
+                        <select value={this.state.numRows} onChange={this.handleBoardSize}>
+                            <option value="3">3</option>
+                            <option value="6">6</option>
+                        </select>
                     </div>
                     <div className="game-form players">
-                        <InputLabel htmlFor="puzzle-level-helper">Puzzle Level</InputLabel>
-                        <Select
-                            value={this.state.puzzleLevel}
-                            onChange={this.handlePuzzleLevel}
-                            id="puzzle-level-helper"
-                        >
-                            <MenuItem value={"easy"}>Easy</MenuItem>
-                            <MenuItem value={"medium"}>Medium</MenuItem>
-                            <MenuItem value={"difficult"}>Difficult</MenuItem>
-                        </Select>
+                        <label> Puzzle level </label>
+                        <select value={this.state.puzzleLevel} onChange={this.handlePuzzleLevel}>
+                            <option value="easy">Easy</option>
+                            <option value="medium">Medium</option>
+                            <option value="difficult">Difficult</option>
+                        </select>
                     </div>
                     <div className="game-form submit">
-                        <Button variant="raised" 
-                                color="primary" 
-                                type="submit" 
+                        <button type="submit" 
                                 value="Submit" 
                                 className="game-form submit">
                             Submit
-                        </Button>
+                        </button>
                     </div>
                 </form>
-                <Button variant="raised" color="primary" className="game-form reset" onClick={this.handleNewGame}>
-                    New Game
-                </Button>
+                <button className="game-form reset" onClick={this.handleNewGame}>New Game</button>
             </div>
         );
     }
@@ -152,5 +135,3 @@ class GameForm extends React.Component
 
 
 export default GameForm;
-
-/*export default withStyles(styles)(GameForm);*/
