@@ -37,7 +37,7 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [["/lights-out/app-1662ead6aa874fff4225.js","1487a1d9c4d2c79910c4c844ba030743"],["/lights-out/commons-2bcba3a02521747dc2ef.js","ad509a1f7586876efe064dd572ae6efd"],["/lights-out/index.html","b2fa7b25e3c294a5a34318ad93419153"],["/lights-out/manifest.json","abc4c0597d3b8dc89593fefd8e3a8385"],["/lights-out/offline-plugin-app-shell-fallback/index.html","4476bfa4c38c3aac52537aff30e3a448"]];
+var precacheConfig = [["/lights-out/app-287206c33e3472e4687d.js","b1be7d99dda711672354f4280020725e"],["/lights-out/commons-124d98d4a064538254c1.js","cc3669df56bc842bcbcd4d61c828585e"],["/lights-out/index.html","706a0b793109edf54e1abf008a45f226"],["/lights-out/manifest.json","abc4c0597d3b8dc89593fefd8e3a8385"],["/lights-out/offline-plugin-app-shell-fallback/index.html","98513b7195fda0fd02488f46117d4ff2"]];
 var cacheName = 'sw-precache-v3-gatsby-plugin-offline-' + (self.registration ? self.registration.scope : '');
 
 
